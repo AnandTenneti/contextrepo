@@ -21,7 +21,7 @@ jobs:
         - run: echo ${{github.events.input.text}}
         - run: echo ${{github.actor}}
         - run: echo ' Hi ${{env.firstName}}'
-        - run: echo 'website - ${{env.website}}
+        - run: echo 'website - ${{env.website}}'
         - run: echo ${{job.status}}
         - run: echo ${{runner.os}}
 
