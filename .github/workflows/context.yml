@@ -24,8 +24,9 @@ jobs:
         - run: echo 'website - ${{ env.website}}'
         - run: echo ${{ job.status}}
         - run: echo ${{ runner.os}}
+
   contexts-demos2:
-    needs: [context-demo]
+    needs: [contexts-demo]
     runs-on: [ubuntu-latest]
     steps:
       - run: echo 'contexts-demo2 running after contexts-demo'
