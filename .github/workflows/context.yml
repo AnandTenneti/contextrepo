@@ -32,18 +32,19 @@ jobs:
     runs-on: [ ubuntu-latest ]
     steps:
       - run: echo 'contexts-demo2 running after contexts-demo'
+
   contexts-demo3:
     runs-on: [ ubuntu-latest ]
     if: ${{always()}}
     needs: [ contexts-demo ]
     steps:
-      -run: echo 'contexts-demo3'
+      - run: echo 'contexts-demo3'
   contexts-demo4:
     runs-on: [ ubuntu-latest ]
     if: ${{failure()}}
     needs: [ contexts-demo ]
     steps:
-      -run: echo 'contexts-demo4'
+      - run: echo 'contexts-demo4'
 
 
 
