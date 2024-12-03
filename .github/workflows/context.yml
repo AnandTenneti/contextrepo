@@ -3,33 +3,48 @@ on:
   workflow_dispatch:
     inputs:
       text:
-        description: 'Please enter the word'
+        description: 'Please enter the word to be printed'
         default: 'Hello'
         required: true
         type: string
 env:
-    firstName: 'Anand'
-    website: 'Testing Mini Bytes'
+  firstName: 'Anand'
+  website: 'Testing Mini Bytes'
 jobs:
   contexts-demo:
+    timeout-minutes: 5
+    continue-on-error: true
     runs-on: ${{matrix.os}}
     strategy:
       matrix:
-        os: [ubuntu-latest]
+        os: [ ubuntu-latest ]
     steps:
-        - run: echo  ${{ inputs.text}}
-        - run: echo ${{ github.events.input.text}}
-        - run: echo ${{ github.actor}}
-        - run: echo ' Hi ${{ env.firstName}}'
-        - run: echo 'website - ${{ env.website}}'
-        - run: echo ${{ job.status}}
-        - run: echo ${{ runner.os}}
+      - run: echo  ${{ inputs.text}}
+      - run: echo ${{ github.events.input.text}}
+      - run: echo ${{ github.actor}}
+      - run: echo ' Hi ${{ env.firstName}}'
+      - run: echo 'website - ${{ env.website}}'
+      - run: echo ${{ job.status}}
+      - run: echo ${{ runner.os}}
 
   contexts-demos2:
-    needs: [contexts-demo]
-    runs-on: [ubuntu-latest]
+    needs: [ contexts-demo ]
+    runs-on: [ ubuntu-latest ]
     steps:
       - run: echo 'contexts-demo2 running after contexts-demo'
+  contexts-demo3:
+    runs-on: [ ubuntu-latest ]
+    if: ${{always()}}
+    needs: [ contexts-demo ]
+    steps:
+      -run: echo 'contexts-demo3'
+  contexts-demo4:
+    runs-on: [ ubuntu-latest ]
+    if: ${{failure()}}
+    needs: [ contexts-demo ]
+    steps:
+      -run: echo 'contexts-demo4'
+
 
 
 
